@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace GerenciadorDeProjetos.Api.Db;
+namespace GerenciadorDeProjetos.Infrastructure.Db;
 
 public class ProjetoDbContext : DbContext
 {

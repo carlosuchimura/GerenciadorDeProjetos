@@ -1,4 +1,4 @@
-﻿namespace GerenciadorDeProjetos.Api.Models;
+﻿namespace GerenciadorDeProjetos.Domain;
 
 public class Projeto
 {

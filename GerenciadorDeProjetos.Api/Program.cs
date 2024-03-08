@@ -1,6 +1,6 @@
-using GerenciadorDeProjetos.Api.Db;
-using GerenciadorDeProjetos.Api.Interfaces;
-using GerenciadorDeProjetos.Api.Providers;
+using GerenciadorDeProjetos.Infrastructure.Db;
+using GerenciadorDeProjetos.Infrastructure.Interfaces;
+using GerenciadorDeProjetos.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ProjetoDbContext>(options =>
     options.UseInMemoryDatabase("Projetos");
 });
 
-builder.Services.AddScoped<IProjetosProvider, ProjetosProvider>();
+builder.Services.AddScoped<IProjetosProvider, ProjetosService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

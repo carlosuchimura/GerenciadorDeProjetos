@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
-using GerenciadorDeProjetos.Api.Db;
-using GerenciadorDeProjetos.Api.Interfaces;
+using GerenciadorDeProjetos.Infrastructure.Db;
+using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace GerenciadorDeProjetos.Api.Providers;
+namespace GerenciadorDeProjetos.Infrastructure.Services;
 
-public class ProjetosProvider : IProjetosProvider
+public class ProjetosService : IProjetosProvider
 {
     private readonly ProjetoDbContext dbContext;
-    private readonly ILogger<ProjetosProvider> projetosProvider;
+    private readonly ILogger<ProjetosService> projetosProvider;
     private readonly IMapper mapper;
 
-    public ProjetosProvider(ProjetoDbContext dbContext, ILogger<ProjetosProvider> projetosProvider, IMapper mapper)
+    public ProjetosService(ProjetoDbContext dbContext, ILogger<ProjetosService> projetosProvider, IMapper mapper)
     {
         this.dbContext = dbContext;
         this.projetosProvider = projetosProvider;
@@ -31,14 +32,14 @@ public class ProjetosProvider : IProjetosProvider
         }
     }
 
-    public async Task<(bool IsSuccess, Models.Projeto? Projeto, string? ErrorMessage)> GetProjetoAsync(int id)
+    public async Task<(bool IsSuccess, Domain.Projeto? Projeto, string? ErrorMessage)> GetProjetoAsync(int id)
     {
         try
         {
             var projeto = await dbContext.Projetos.FirstOrDefaultAsync(p => p.Id == id);
             if (projeto != null)
             {
-                return (true, mapper.Map<Db.Projeto, Models.Projeto>(projeto), null);
+                return (true, mapper.Map<Db.Projeto, Domain.Projeto>(projeto), null);
             }
             return (false, null, "Não encontrado");
         }
@@ -48,14 +49,14 @@ public class ProjetosProvider : IProjetosProvider
         }
     }
 
-    public async Task<(bool IsSuccess, IEnumerable<Models.Projeto>? Projetos, string? ErrorMessage)> GetProjetosAsync(int customerId)
+    public async Task<(bool IsSuccess, IEnumerable<Domain.Projeto>? Projetos, string? ErrorMessage)> GetProjetosAsync(int customerId)
     {
         try
         {
             var projetos = await dbContext.Projetos.Where(o => o.CustomerId == customerId).ToListAsync();
             if (projetos.Any())
             {
-                var mappedProjetos = mapper.Map<IEnumerable<Db.Projeto>, IEnumerable<Models.Projeto>>(projetos);
+                var mappedProjetos = mapper.Map<IEnumerable<Db.Projeto>, IEnumerable<Domain.Projeto>>(projetos);
                 return (true, mappedProjetos, null);
             }
             return (false, null, "Projetos não encontrados");

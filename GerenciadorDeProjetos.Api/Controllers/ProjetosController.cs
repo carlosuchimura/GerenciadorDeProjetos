@@ -1,4 +1,4 @@
-﻿using GerenciadorDeProjetos.Api.Interfaces;
+﻿using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorDeProjetos.Api.Controllers;
