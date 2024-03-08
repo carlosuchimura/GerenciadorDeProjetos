@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ProjetoDbContext>(options =>
     options.UseInMemoryDatabase("Projetos");
 });
 
-builder.Services.AddScoped<IProjetosProvider, ProjetosService>();
+builder.Services.AddScoped<IProjetosService, ProjetosService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

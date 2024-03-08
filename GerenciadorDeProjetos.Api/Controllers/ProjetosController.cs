@@ -7,17 +7,17 @@ namespace GerenciadorDeProjetos.Api.Controllers;
 [Route("api/projetos")]
 public class ProjetosController : ControllerBase
 {
-    private readonly IProjetosProvider projetosProvider;
+    private readonly IProjetosService projetosService;
 
-    public ProjetosController(IProjetosProvider projetosProvider)
+    public ProjetosController(IProjetosService projetosService)
     {
-        this.projetosProvider = projetosProvider;
+        this.projetosService = projetosService;
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProjetosAsync(int id)
     {
-        var result = await projetosProvider.GetProjetosAsync(id);
+        var result = await projetosService.GetProjetosAsync(id);
         if (result.IsSuccess)
         {
             return Ok(result.Projetos);

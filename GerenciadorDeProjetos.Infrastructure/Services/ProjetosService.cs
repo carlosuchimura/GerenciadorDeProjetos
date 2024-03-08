@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 
 namespace GerenciadorDeProjetos.Infrastructure.Services;
 
-public class ProjetosService : IProjetosProvider
+public class ProjetosService : IProjetosService
 {
     private readonly ProjetoDbContext dbContext;
-    private readonly ILogger<ProjetosService> projetosProvider;
+    private readonly ILogger<ProjetosService> projetosService;
     private readonly IMapper mapper;
 
-    public ProjetosService(ProjetoDbContext dbContext, ILogger<ProjetosService> projetosProvider, IMapper mapper)
+    public ProjetosService(ProjetoDbContext dbContext, ILogger<ProjetosService> projetosService, IMapper mapper)
     {
         this.dbContext = dbContext;
-        this.projetosProvider = projetosProvider;
+        this.projetosService = projetosService;
         this.mapper = mapper;
         SeedData();
     }
