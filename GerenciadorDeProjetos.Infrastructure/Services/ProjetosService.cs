@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GerenciadorDeProjetos.Infrastructure.Db;
+using GerenciadorDeProjetos.Infrastructure.Context;
 using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -24,10 +24,10 @@ public class ProjetosService : IProjetosService
     {
         if (!dbContext.Projetos.Any())
         {
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 1, CustomerId = 1, OrderDate = DateTime.Now, Total = 100 });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 2, CustomerId = 1, OrderDate = DateTime.Now, Total = 200 });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 3, CustomerId = 2, OrderDate = DateTime.Now, Total = 300 });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 4, CustomerId = 2, OrderDate = DateTime.Now, Total = 400 });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 1, Nome = "Teste 1", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 2, Nome = "Teste 2", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 3, Nome = "Teste 3", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 4, Nome = "Teste 4", Area = "TI", DataInicio = DateTime.Now });
             dbContext.SaveChanges();
         }
     }
@@ -49,11 +49,11 @@ public class ProjetosService : IProjetosService
         }
     }
 
-    public async Task<(bool IsSuccess, IEnumerable<Domain.Projeto>? Projetos, string? ErrorMessage)> GetProjetosAsync(int customerId)
+    public async Task<(bool IsSuccess, IEnumerable<Domain.Projeto>? Projetos, string? ErrorMessage)> GetProjetosAsync()
     {
         try
         {
-            var projetos = await dbContext.Projetos.Where(o => o.CustomerId == customerId).ToListAsync();
+            var projetos = await dbContext.Projetos.ToListAsync();
             if (projetos.Any())
             {
                 var mappedProjetos = mapper.Map<IEnumerable<Db.Projeto>, IEnumerable<Domain.Projeto>>(projetos);

@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GerenciadorDeProjetos.Infrastructure.Db;
+using Microsoft.EntityFrameworkCore;
 
-namespace GerenciadorDeProjetos.Infrastructure.Db;
+namespace GerenciadorDeProjetos.Infrastructure.Context;
 
 public class ProjetoDbContext : DbContext
 {

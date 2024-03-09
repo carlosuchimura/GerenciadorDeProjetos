@@ -14,13 +14,23 @@ public class ProjetosController : ControllerBase
         this.projetosService = projetosService;
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetProjetosAsync(int id)
+    [HttpGet]
+    public async Task<IActionResult> GetProjetosAsync()
     {
-        var result = await projetosService.GetProjetosAsync(id);
+        var result = await projetosService.GetProjetosAsync();
         if (result.IsSuccess)
         {
             return Ok(result.Projetos);
+        }
+        return NotFound();
+    }
+    [HttpGet("{Id}")]
+    public async Task<IActionResult> GetProjetoAsync(int id)
+    {
+        var result = await projetosService.GetProjetoAsync(id);
+        if (result.IsSuccess)
+        {
+            return Ok(result.Projeto);
         }
         return NotFound();
     }

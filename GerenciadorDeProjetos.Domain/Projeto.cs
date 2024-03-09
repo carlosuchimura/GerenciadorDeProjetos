@@ -3,7 +3,8 @@
 public class Projeto
 {
     public int Id { get; set; }
-    public int CustomerId { get; set; }
-    public DateTime OrderDate { get; set; }
-    public decimal Total { get; set; }
+    public string Nome { get; set; }
+    public string Area { get; set; }
+    public DateTime DataInicio { get; set; }
+    public DateTime? DataFim { get; set; }
 }
