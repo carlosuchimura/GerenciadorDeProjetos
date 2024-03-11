@@ -17,19 +17,7 @@ public class TarefasComentariosService : ITarefasComentariosService
         this.dbContext = dbContext;
         this.tarefasComentariosService = tarefasComentariosService;
         this.mapper = mapper;
-        SeedData();
-    }
-
-    private void SeedData()
-    {
-        if (!dbContext.TarefasComentarios.Any())
-        {
-            dbContext.TarefasComentarios.Add(new Db.TarefaComentario() { Id = 1, TarefaId = 1, UsuarioId = 3, Comentario = "Comentário 1", Data = DateTime.Now });
-            dbContext.TarefasComentarios.Add(new Db.TarefaComentario() { Id = 2, TarefaId = 1, UsuarioId = 3, Comentario = "Comentário 2", Data = DateTime.Now });
-            dbContext.TarefasComentarios.Add(new Db.TarefaComentario() { Id = 3, TarefaId = 1, UsuarioId = 2, Comentario = "Comentário 3", Data = DateTime.Now });
-            dbContext.TarefasComentarios.Add(new Db.TarefaComentario() { Id = 4, TarefaId = 1, UsuarioId = 1, Comentario = "Comentário 4", Data = DateTime.Now });
-            dbContext.SaveChanges();
-        }
+        SeedDataUtil.SeedData(dbContext);
     }
 
     public async Task<(bool IsSuccess, IEnumerable<Domain.TarefaComentario>? TarefaComentarios, string? ErrorMessage)> GetComentariosAsync(int tarefaId)

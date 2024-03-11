@@ -17,19 +17,7 @@ public class TarefasHistoricoService : ITarefasHistoricoService
         this.dbContext = dbContext;
         this.tarefasHistoricoService = tarefasHistoricoService;
         this.mapper = mapper;
-        SeedData();
-    }
-
-    private void SeedData()
-    {
-        if (!dbContext.TarefasHistorico.Any())
-        {
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 1, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 2, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 3, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 4, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.SaveChanges();
-        }
+        SeedDataUtil.SeedData(dbContext);
     }
 
     public async Task<(bool IsSuccess, IEnumerable<Domain.TarefaHistorico>? TarefasHistorico, string? ErrorMessage)> GetHistoricoAsync(int tarefaId)

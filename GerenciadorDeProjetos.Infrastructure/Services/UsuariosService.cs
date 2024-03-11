@@ -17,18 +17,7 @@ public class UsuariosService : IUsuariosService
         this.dbContext = dbContext;
         this.usuariosService = usuariosService;
         this.mapper = mapper;
-        SeedData();
-    }
-
-    private void SeedData()
-    {
-        if (!dbContext.Usuarios.Any())
-        {
-            dbContext.Usuarios.Add(new Db.Usuario() { Id = 1, Nome = "Gerente", Email = "gerente@ti.com", Ativo = true });
-            dbContext.Usuarios.Add(new Db.Usuario() { Id = 2, Nome = "Analista Senior", Email = "senior@ti.com", Ativo = true });
-            dbContext.Usuarios.Add(new Db.Usuario() { Id = 3, Nome = "Estagiario", Email = "estagiario@ti.com", Ativo = true });
-            dbContext.SaveChanges();
-        }
+        SeedDataUtil.SeedData(dbContext);
     }
 
     public async Task<(bool IsSuccess, IEnumerable<Usuario>? Usuarios, string? ErrorMessage)> GetUsuariosAsync()

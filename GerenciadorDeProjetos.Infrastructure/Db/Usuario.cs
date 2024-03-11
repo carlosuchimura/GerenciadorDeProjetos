@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GerenciadorDeProjetos.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace GerenciadorDeProjetos.Infrastructure.Db;
 
@@ -9,4 +10,5 @@ public class Usuario
     public string Nome { get; set; }
     public string Email { get; set; }
     public bool Ativo { get; set; }
+    public int Perfil { get; set; }
 }

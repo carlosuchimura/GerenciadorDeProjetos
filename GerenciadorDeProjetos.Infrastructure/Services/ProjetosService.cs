@@ -17,19 +17,7 @@ public class ProjetosService : IProjetosService
         this.dbContext = dbContext;
         this.projetosService = projetosService;
         this.mapper = mapper;
-        SeedData();
-    }
-
-    private void SeedData()
-    {
-        if (!dbContext.Projetos.Any())
-        {
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 1, Nome = "Projeto 1", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 2, Nome = "Projeto 2", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 3, Nome = "Projeto 3", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 4, Nome = "Projeto 4", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.SaveChanges();
-        }
+        SeedDataUtil.SeedData(dbContext);
     }
 
     public async Task<(bool IsSuccess, Domain.Projeto? Projeto, string? ErrorMessage)> GetProjetoAsync(int id)
