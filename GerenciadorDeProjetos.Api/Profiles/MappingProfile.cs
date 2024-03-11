@@ -9,5 +9,9 @@ public class MappingProfile : AutoMapper.Profile
         CreateMap<Db.TarefaComentario, Domain.TarefaComentario>();
         CreateMap<Db.TarefaHistorico, Domain.TarefaHistorico>();
         CreateMap<Db.Usuario, Domain.Usuario>();
+
+        CreateMap<Domain.Tarefa, Db.Tarefa>();
+        CreateMap<Domain.TarefaComentario, Db.TarefaComentario>();
+        CreateMap<Domain.TarefaHistorico, Db.TarefaHistorico>();
     }
 }

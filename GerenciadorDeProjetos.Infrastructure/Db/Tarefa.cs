@@ -14,7 +14,7 @@ public class Tarefa
     public int Status { get; set; }
     public int Estimativa { get; set; }
     public DateTime DataInicio { get; set; }
-    public DateTime? DataFim { get; set; }
+    public DateTime? DataConclusao { get; set; }
 
     public virtual IList<TarefaComentario> Comentarios { get; set; }
     public virtual IList<TarefaHistorico> Historicos { get; set; }

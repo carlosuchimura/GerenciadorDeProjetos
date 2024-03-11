@@ -1,4 +1,5 @@
-﻿using GerenciadorDeProjetos.Infrastructure.Interfaces;
+﻿using GerenciadorDeProjetos.Domain;
+using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorDeProjetos.Api.Controllers;
@@ -23,5 +24,27 @@ public class TarefasController : ControllerBase
             return Ok(result.Tarefas);
         }
         return NotFound();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostTarefaAsync([FromBody] Tarefa tarefa)
+    {
+        var result = await tarefasService.CreateTarefaAsync(tarefa);
+        if (result.IsSuccess)
+        {
+            return Ok();
+        }
+        return BadRequest();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> PutTarefaAsync([FromBody] Tarefa tarefa, int usuarioId)
+    {
+        var result = await tarefasService.UpdateTarefaAsync(tarefa, usuarioId);
+        if (result.IsSuccess)
+        {
+            return Ok();
+        }
+        return BadRequest();
     }
 }

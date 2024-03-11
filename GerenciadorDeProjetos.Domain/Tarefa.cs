@@ -9,10 +9,21 @@ public class Tarefa
     public StatusTarefa Status { get; set; }
     public int Estimativa { get; set; }
     public DateTime DataInicio { get; set; }
-    public DateTime? DataFim { get; set; }
+    public DateTime? DataConclusao { get; set; }
 
     public virtual IList<TarefaComentario> Comentarios { get; set; }
     public virtual IList<TarefaHistorico> Historicos { get; set; }
+
+    public Tarefa(string titulo, string descricao, PrioridadeTarefa prioridade, StatusTarefa status, int estimativa, DateTime dataInicio, DateTime? dataConclusao)
+    {
+        Titulo = titulo;
+        Descricao = descricao;
+        Prioridade = prioridade;
+        Status = status;
+        Estimativa = estimativa;
+        DataInicio = dataInicio;
+        DataConclusao = dataConclusao;
+    }
 }
 
 public enum StatusTarefa

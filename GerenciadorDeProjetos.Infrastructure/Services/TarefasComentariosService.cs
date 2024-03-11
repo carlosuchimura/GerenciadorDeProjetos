@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GerenciadorDeProjetos.Domain;
 using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -46,6 +47,21 @@ public class TarefasComentariosService : ITarefasComentariosService
         catch (Exception ex)
         {
             return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsSuccess, string? ErrorMessage)> CreateComentarioAsync(TarefaComentario tarefaComentario)
+    {
+        try
+        {
+            await dbContext.TarefasComentarios.AddAsync(mapper.Map<TarefaComentario, Db.TarefaComentario>(tarefaComentario));
+            dbContext.SaveChanges();
+
+            return (true, "Comentário Cadastrado");
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GerenciadorDeProjetos.Domain;
 using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -23,10 +24,10 @@ public class TarefasHistoricoService : ITarefasHistoricoService
     {
         if (!dbContext.TarefasHistorico.Any())
         {
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 1, TarefaId = 1, UsuarioId = 3, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 2, TarefaId = 1, UsuarioId = 3, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 3, TarefaId = 1, UsuarioId = 2, HistoricoJson = String.Empty, Data = DateTime.Now });
-            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 4, TarefaId = 1, UsuarioId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
+            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 1, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
+            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 2, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
+            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 3, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
+            dbContext.TarefasHistorico.Add(new Db.TarefaHistorico() { Id = 4, TarefaId = 1, HistoricoJson = String.Empty, Data = DateTime.Now });
             dbContext.SaveChanges();
         }
     }

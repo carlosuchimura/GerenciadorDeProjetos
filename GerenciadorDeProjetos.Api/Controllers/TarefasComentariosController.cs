@@ -1,4 +1,5 @@
-﻿using GerenciadorDeProjetos.Infrastructure.Interfaces;
+﻿using GerenciadorDeProjetos.Domain;
+using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using GerenciadorDeProjetos.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,5 +25,16 @@ public class TarefasComentariosController : ControllerBase
             return Ok(result.TarefaComentarios);
         }
         return NotFound();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostComentarioAsync([FromBody] TarefaComentario tarefaComentario)
+    {
+        var result = await tarefasComentariosService.CreateComentarioAsync(tarefaComentario);
+        if (result.IsSuccess)
+        {
+            return Ok();
+        }
+        return BadRequest();
     }
 }
