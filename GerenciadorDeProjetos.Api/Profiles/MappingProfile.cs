@@ -6,6 +6,7 @@ public class MappingProfile : AutoMapper.Profile
     {
         CreateMap<Db.Projeto, Domain.Projeto>();
         CreateMap<Db.Tarefa, Domain.Tarefa>();
+        CreateMap<Db.TarefaComentario, Domain.TarefaComentario>();
         CreateMap<Db.TarefaHistorico, Domain.TarefaHistorico>();
         CreateMap<Db.Usuario, Domain.Usuario>();
     }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GerenciadorDeProjetos.Infrastructure.Context;
+using GerenciadorDeProjetos.Domain;
 using GerenciadorDeProjetos.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -8,11 +8,11 @@ namespace GerenciadorDeProjetos.Infrastructure.Services;
 
 public class ProjetosService : IProjetosService
 {
-    private readonly ProjetoDbContext dbContext;
+    private readonly Context.Context dbContext;
     private readonly ILogger<ProjetosService> projetosService;
     private readonly IMapper mapper;
 
-    public ProjetosService(ProjetoDbContext dbContext, ILogger<ProjetosService> projetosService, IMapper mapper)
+    public ProjetosService(Context.Context dbContext, ILogger<ProjetosService> projetosService, IMapper mapper)
     {
         this.dbContext = dbContext;
         this.projetosService = projetosService;
@@ -24,10 +24,10 @@ public class ProjetosService : IProjetosService
     {
         if (!dbContext.Projetos.Any())
         {
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 1, Nome = "Teste 1", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 2, Nome = "Teste 2", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 3, Nome = "Teste 3", Area = "TI", DataInicio = DateTime.Now });
-            dbContext.Projetos.Add(new Db.Projeto() { Id = 4, Nome = "Teste 4", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 1, Nome = "Projeto 1", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 2, Nome = "Projeto 2", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 3, Nome = "Projeto 3", Area = "TI", DataInicio = DateTime.Now });
+            dbContext.Projetos.Add(new Db.Projeto() { Id = 4, Nome = "Projeto 4", Area = "TI", DataInicio = DateTime.Now });
             dbContext.SaveChanges();
         }
     }

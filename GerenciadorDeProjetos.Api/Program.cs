@@ -12,12 +12,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ProjetoDbContext>(options =>
+builder.Services.AddDbContext<Context>(options =>
 {
-    options.UseInMemoryDatabase("Projetos");
+    options.UseInMemoryDatabase("GerenciadorDeProjetos");
 });
 
 builder.Services.AddScoped<IProjetosService, ProjetosService>();
+builder.Services.AddScoped<IUsuariosService, UsuariosService>();
+builder.Services.AddScoped<ITarefasService, TarefasService>();
+builder.Services.AddScoped<ITarefasComentariosService, TarefasComentariosService>();
+builder.Services.AddScoped<ITarefasHistoricoService, TarefasHistoricoService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

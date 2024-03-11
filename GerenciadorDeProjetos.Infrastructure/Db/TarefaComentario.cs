@@ -2,12 +2,12 @@
 
 namespace GerenciadorDeProjetos.Infrastructure.Db;
 
-public class TarefaHistorico
+public class TarefaComentario
 {
     [Key]
     public int Id { get; set; }
     public int TarefaId { get; set; }
-    public string HistoricoJson { get; set; }
+    public string Comentario { get; set; }
     public int UsuarioId { get; set; }
     public DateTime Data { get; set; }
 
