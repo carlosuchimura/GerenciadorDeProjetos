@@ -23,6 +23,17 @@ builder.Services.AddScoped<ITarefasService, TarefasService>();
 builder.Services.AddScoped<ITarefasComentariosService, TarefasComentariosService>();
 builder.Services.AddScoped<ITarefasHistoricoService, TarefasHistoricoService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
@@ -39,5 +50,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowReactApp");
 
 app.Run();

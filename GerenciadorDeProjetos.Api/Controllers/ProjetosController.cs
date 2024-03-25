@@ -35,4 +35,25 @@ public class ProjetosController : ControllerBase
         }
         return NotFound();
     }
+
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadFilesAsync()
+    {
+        var files = Request.Form.Files;
+
+        foreach (var file in files)
+        {
+            var content = file.OpenReadStream();
+
+
+            //var result = await projetosService.UploadFileAsync(file);
+            //if (!result.IsSuccess)
+            //{
+            //    return BadRequest();
+            //}
+        }
+
+        return Ok();
+    }
+
 }

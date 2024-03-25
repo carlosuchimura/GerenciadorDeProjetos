@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload de Arquivos</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Upload de Arquivos</h1>
+  <div>
+    <input type="file" id="multiFileInput" multiple style="display: none;">
+    <button id="addMultiFilesButton">Adicionar Arquivos Múltiplos</button>
+  </div>
+  <div>
+    <input type="file" id="singleFileInput" style="display: none;">
+    <button id="addSingleFileButton">Adicionar Arquivo Único</button>
+  </div>
+  <div id="fileList" style="display: none;">
+    <h2>Arquivos Selecionados:</h2>
+    <ul id="selectedFilesList"></ul>
+    <button id="uploadButton">Enviar Arquivos</button>
+  </div>
+  <div id="termsSection" style="display: none;">
+    <h2>Termos de Serviço</h2>
+    <input type="radio" id="agreeRadio" name="terms" value="sim">
+    <label for="agreeRadio">Sim</label>
+    <input type="radio" id="disagreeRadio" name="terms" value="nao">
+    <label for="disagreeRadio">Não</label>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var multiFiles = [];
+      var singleFile;
+
+      $('#addMultiFilesButton').click(function() {
+        $('#multiFileInput').click();
+      });
+
+      $('#multiFileInput').change(function() {
+        var newMultiFiles = [...this.files];
+        multiFiles = multiFiles.concat(newMultiFiles);
+        displayFiles();
+      });
+
+      $('#addSingleFileButton').click(function() {
+        $('#singleFileInput').click();
+      });
+
+      $('#singleFileInput').change(function() {
+        singleFile = this.files[0];
+        displayFiles();
+      });
+
+      $(document).on('click', '.removeFileButton', function() {
+        var index = $(this).data('index');
+        multiFiles.splice(index, 1);
+        displayFiles();
+      });
+
+      $('#uploadButton').click(function() {
+        if (!isTermsAgreed()) {
+          alert('Por favor, concorde com os termos de serviço.');
+          return;
+        }
+
+        // Aqui você pode enviar os arquivos para o servidor
+        // Exemplo:
+        var formData = new FormData();
+        multiFiles.forEach(function(file) {
+          formData.append('multiFiles', file);
+        });
+        formData.append('singleFile', singleFile);
+
+        $.ajax({
+          url: 'https://localhost:44341/api/projetos/upload',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            console.log('Arquivos enviados com sucesso:', response);
+            multiFiles = [];
+            singleFile = null;
+            displayFiles();
+          },
+          error: function(xhr, status, error) {
+            console.error('Erro ao enviar arquivos:', error);
+          }
+        });
+      });
+
+      $('input[type="radio"]').change(function() {
+        displayFiles();
+      });
+
+      function displayFiles() {
+        var $selectedFilesList = $('#selectedFilesList');
+        $selectedFilesList.empty();
+
+        if (multiFiles.length > 0 || singleFile) {
+          $('#fileList').show();
+
+          if (multiFiles.length > 0) {
+            $.each(multiFiles, function(index, file) {
+              var listItem = $('<li>').text(file.name);
+              var removeButton = $('<button>').text('Excluir').addClass('removeFileButton').data('index', index);
+              listItem.append(removeButton);
+              $selectedFilesList.append(listItem);
+            });
+          }
+
+          if (singleFile) {
+            var listItem = $('<li>').text(singleFile.name);
+            $selectedFilesList.append(listItem);
+          }
+
+          $('#termsSection').show();
+        } else {
+          $('#fileList').hide();
+          $('#termsSection').hide();
+        }
+      }
+
+      function isTermsAgreed() {
+        return $('#agreeRadio').is(':checked');
+      }
+    });
+  </script>
+</body>
+</html>
